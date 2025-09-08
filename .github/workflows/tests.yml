@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    name: Run Feature Tests
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: task_flow_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, dom, fileinfo, mysql, zip, bcmath, gd, intl
+        coverage: none
+
+    - name: Create .env file
+      run: |
+        echo "APP_NAME=TaskFlow" > .env
+        echo "APP_ENV=testing" >> .env
+        echo "APP_KEY=" >> .env
+        echo "APP_DEBUG=true" >> .env
+        echo "APP_URL=http://localhost" >> .env
+        echo "LOG_CHANNEL=stack" >> .env
+        echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env
+        echo "LOG_LEVEL=debug" >> .env
+
+    - name: Install dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-cache
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Generate JWT secret
+      run: php artisan jwt:secret
+
+    - name: Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
+
+    - name: Set up test environment
+      run: |
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=task_flow_test" >> .env
+        echo "DB_USERNAME=root" >> .env
+        echo "DB_PASSWORD=password" >> .env
+
+    - name: Run migrations
+      run: php artisan migrate --force
+
+    - name: Run Feature Tests
+      run: php artisan test
