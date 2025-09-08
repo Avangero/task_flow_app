@@ -7,6 +7,7 @@ use App\Http\Resources\BaseApiResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -50,6 +51,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(fn (MethodNotAllowedHttpException $e, Request $request) => $handler->handleMethodNotAllowedException($e, $request)
         );
+
+        $exceptions->render(function (ThrottleRequestsException $e, Request $request) {
+            return BaseApiResource::error(__('api.http.too_many_requests'), 429);
+        });
 
         $exceptions->render(fn (\Throwable $e, Request $request) => $handler->handleGenericException($e, $request)
         );
