@@ -15,6 +15,7 @@ return [
         'not_found' => 'Ресурс не найден',
         'method_not_allowed' => 'Метод не разрешен',
         'validation_error' => 'Ошибка валидации данных',
+        'unauthorized' => 'Неавторизованный доступ',
         'internal_server_error' => 'Внутренняя ошибка сервера',
     ],
 

@@ -11,15 +11,16 @@ class ApiException extends Exception
     protected string $userMessage;
 
     public function __construct(
-        string $message = 'Произошла ошибка',
+        ?string $message = null,
         int $statusCode = 500,
         ?string $userMessage = null,
         ?Exception $previous = null
     ) {
-        parent::__construct($message, 0, $previous);
+        $resolvedMessage = $message ?? __('api.error');
+        parent::__construct($resolvedMessage, 0, $previous);
 
         $this->statusCode = $statusCode;
-        $this->userMessage = $userMessage ?? $message;
+        $this->userMessage = $userMessage ?? $resolvedMessage;
     }
 
     public function render(): JsonResponse

@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\BaseApiResource;
 use App\Http\Resources\UserResource;
 use App\Services\Auth\AuthServiceInterface;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
         private readonly AuthServiceInterface $authService
     ) {}
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $result = $this->authService->register($request);
 
@@ -27,7 +28,7 @@ class AuthController extends Controller
         );
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $result = $this->authService->login($request);
 
@@ -39,7 +40,7 @@ class AuthController extends Controller
         );
     }
 
-    public function me()
+    public function me(): JsonResponse
     {
         $user = $this->authService->me();
 
@@ -50,14 +51,14 @@ class AuthController extends Controller
         );
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         $this->authService->logout();
 
         return BaseApiResource::success(message: __('api.auth.logout_success'), statusCode: 200);
     }
 
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         $result = $this->authService->refresh();
 

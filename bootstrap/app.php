@@ -3,6 +3,7 @@
 use App\Exceptions\ApiException;
 use App\Http\Handlers\ApiExceptionHandler;
 use App\Http\Middleware\JWTAuthMiddleware;
+use App\Http\Resources\BaseApiResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,7 +33,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(fn (ApiException $e, Request $request) => $handler->handleApiException($e, $request)
         );
 
-        $exceptions->render(fn (JWTException $e, Request $request) => $handler->handleJWTException($e, $request)
+        $exceptions->render(fn (TokenExpiredException $e, Request $request) => BaseApiResource::error(__('api.jwt.token_expired'), 401)
+        );
+
+        $exceptions->render(fn (TokenInvalidException $e, Request $request) => BaseApiResource::error(__('api.jwt.token_invalid'), 401)
+        );
+
+        $exceptions->render(fn (JWTException $e, Request $request) => BaseApiResource::error($request->bearerToken() === null ? __('api.jwt.token_missing') : ($request->is('api/auth/refresh') ? __('api.jwt.token_refresh_failed') : __('api.jwt.token_error')), 401)
         );
 
         $exceptions->render(fn (ValidationException $e, Request $request) => $handler->handleValidationException($e, $request)

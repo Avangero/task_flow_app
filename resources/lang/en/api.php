@@ -15,6 +15,7 @@ return [
         'not_found' => 'Resource not found',
         'method_not_allowed' => 'Method not allowed',
         'validation_error' => 'Validation error',
+        'unauthorized' => 'Unauthorized access',
         'internal_server_error' => 'Internal server error',
     ],
 
