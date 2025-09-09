@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Auth\AuthService;
 use App\Services\Auth\AuthServiceInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -16,6 +20,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             AuthServiceInterface::class,
             AuthService::class
+        );
+
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class
+        );
+
+        $this->app->bind(
+            UserServiceInterface::class,
+            UserService::class
         );
     }
 

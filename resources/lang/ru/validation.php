@@ -9,6 +9,8 @@ return [
     'alpha' => 'Поле :attribute должно содержать только буквы.',
     'alpha_dash' => 'Поле :attribute должно содержать только буквы, цифры, дефисы и подчеркивания.',
     'alpha_num' => 'Поле :attribute должно содержать только буквы и цифры.',
+    'ascii' => 'Поле :attribute должно содержать только однобайтные буквенно-цифровые символы и знаки.',
+    'can' => 'Поле :attribute содержит недопустимое значение.',
     'array' => 'Поле :attribute должно быть массивом.',
     'before' => 'Поле :attribute должно быть датой до :date.',
     'before_or_equal' => 'Поле :attribute должно быть датой до или равной :date.',
@@ -24,6 +26,7 @@ return [
     'date' => 'Поле :attribute должно быть корректной датой.',
     'date_equals' => 'Поле :attribute должно быть датой, равной :date.',
     'date_format' => 'Поле :attribute не соответствует формату :format.',
+    'decimal' => 'Поле :attribute должно содержать :decimal десятичные знаки.',
     'declined' => 'Поле :attribute должно быть отклонено.',
     'declined_if' => 'Поле :attribute должно быть отклонено, когда :other равно :value.',
     'different' => 'Поля :attribute и :other должны различаться.',
@@ -37,6 +40,7 @@ return [
     'ends_with' => 'Поле :attribute должно заканчиваться одним из следующих значений: :values.',
     'enum' => 'Выбранное значение для :attribute недопустимо.',
     'exists' => 'Выбранное значение для :attribute недопустимо.',
+    'extensions' => 'Поле :attribute должно иметь одно из следующих расширений: :values.',
     'file' => 'Поле :attribute должно быть файлом.',
     'filled' => 'Поле :attribute обязательно для заполнения.',
     'gt' => [
@@ -59,6 +63,7 @@ return [
     'ipv4' => 'Поле :attribute должно быть действительным IPv4-адресом.',
     'ipv6' => 'Поле :attribute должно быть действительным IPv6-адресом.',
     'json' => 'Поле :attribute должно быть корректной JSON-строкой.',
+    'lowercase' => 'Поле :attribute должно быть в нижнем регистре.',
     'lt' => [
         'array' => 'Поле :attribute должно содержать менее :value элементов.',
         'file' => 'Размер файла в поле :attribute должен быть менее :value килобайт.',
@@ -71,6 +76,7 @@ return [
         'numeric' => 'Поле :attribute должно быть не более :value.',
         'string' => 'Поле :attribute должно содержать не более :value символов.',
     ],
+    'hex_color' => 'Поле :attribute должно быть действительным шестнадцатеричным цветом.',
     'mac_address' => 'Поле :attribute должно быть действительным MAC-адресом.',
     'max' => [
         'array' => 'Поле :attribute должно содержать не более :max элементов.',
@@ -105,6 +111,10 @@ return [
         'uncompromised' => 'Данный :attribute попал в утечку данных. Пожалуйста, выберите другой :attribute.',
     ],
     'present' => 'Поле :attribute должно присутствовать.',
+    'present_if' => 'Поле :attribute должно присутствовать, когда :other равно :value.',
+    'present_unless' => 'Поле :attribute должно присутствовать, если :other не равно :value.',
+    'present_with' => 'Поле :attribute должно присутствовать, когда присутствует :values.',
+    'present_with_all' => 'Поле :attribute должно присутствовать, когда присутствуют :values.',
     'prohibited' => 'Поле :attribute запрещено.',
     'prohibited_if' => 'Поле :attribute запрещено, когда :other равно :value.',
     'prohibited_unless' => 'Поле :attribute запрещено, если :other не входит в :values.',
@@ -143,7 +153,8 @@ return [
     ],
 
     'attributes' => [
-        'name' => 'имя',
+        'first_name' => 'имя',
+        'last_name' => 'фамилия',
         'email' => 'адрес электронной почты',
         'password' => 'пароль',
         'password_confirmation' => 'подтверждение пароля',

@@ -8,7 +8,8 @@ uses(RefreshDatabase::class);
 
 beforeEach(function () {
     $this->user = User::factory()->create([
-        'name' => 'Test User',
+        'first_name' => 'Test',
+        'last_name' => 'User',
         'email' => 'test@example.com',
         'password' => bcrypt('password123'),
     ]);
@@ -16,7 +17,8 @@ beforeEach(function () {
 
 test('пользователь может зарегистрироваться с валидными данными', function () {
     $userData = [
-        'name' => 'New User',
+        'first_name' => 'New',
+        'last_name' => 'User',
         'email' => 'newuser@example.com',
         'password' => 'password123',
         'password_confirmation' => 'password123',
@@ -29,7 +31,7 @@ test('пользователь может зарегистрироваться �
             'success',
             'message',
             'data' => [
-                'user' => ['id', 'name', 'email'],
+                'user' => ['id', 'first_name', 'last_name', 'email'],
                 'token',
                 'token_type',
                 'expires_in',
@@ -45,13 +47,15 @@ test('пользователь может зарегистрироваться �
 
     $this->assertDatabaseHas('users', [
         'email' => 'newuser@example.com',
-        'name' => 'New User',
+        'first_name' => 'New',
+        'last_name' => 'User',
     ]);
 });
 
 test('регистрация не удается с невалидными данными', function () {
     $response = $this->postJson('/api/auth/register', [
-        'name' => '',
+        'first_name' => '',
+        'last_name' => '',
         'email' => 'invalid-email',
         'password' => '123',
         'password_confirmation' => '456',
@@ -62,12 +66,13 @@ test('регистрация не удается с невалидными да�
             'success' => false,
             'message' => __('api.http.validation_error'),
         ])
-        ->assertJsonValidationErrors(['name', 'email', 'password']);
+        ->assertJsonValidationErrors(['first_name', 'last_name', 'email', 'password']);
 });
 
 test('регистрация не удается с уже существующим email', function () {
     $response = $this->postJson('/api/auth/register', [
-        'name' => 'Another User',
+        'first_name' => 'Another',
+        'last_name' => 'User',
         'email' => 'test@example.com',
         'password' => 'password123',
         'password_confirmation' => 'password123',
@@ -88,7 +93,7 @@ test('пользователь может войти с валидными уч�
             'success',
             'message',
             'data' => [
-                'user' => ['id', 'name', 'email'],
+                'user' => ['id', 'first_name', 'last_name', 'email'],
                 'token',
                 'token_type',
                 'expires_in',
@@ -141,7 +146,7 @@ test('аутентифицированный пользователь может
         ->assertJsonStructure([
             'success',
             'data' => [
-                'user' => ['id', 'name', 'email'],
+                'user' => ['id', 'first_name', 'last_name', 'email'],
             ],
         ])
         ->assertJson([
@@ -149,7 +154,8 @@ test('аутентифицированный пользователь может
             'data' => [
                 'user' => [
                     'id' => $this->user->id,
-                    'name' => $this->user->name,
+                    'first_name' => $this->user->first_name,
+                    'last_name' => $this->user->last_name,
                     'email' => $this->user->email,
                 ],
             ],
@@ -190,7 +196,7 @@ test('пользователь может обновить действител�
             'success',
             'message',
             'data' => [
-                'user' => ['id', 'name', 'email'],
+                'user' => ['id', 'first_name', 'last_name', 'email'],
                 'token',
                 'token_type',
                 'expires_in',
@@ -258,7 +264,7 @@ test('аутентифицированный пользователь может
         ->assertJsonStructure([
             'success',
             'data' => [
-                'user' => ['id', 'name', 'email'],
+                'user' => ['id', 'first_name', 'last_name', 'email'],
             ],
         ])
         ->assertJson([
@@ -266,7 +272,8 @@ test('аутентифицированный пользователь может
             'data' => [
                 'user' => [
                     'id' => $this->user->id,
-                    'name' => $this->user->name,
+                    'first_name' => $this->user->first_name,
+                    'last_name' => $this->user->last_name,
                     'email' => $this->user->email,
                 ],
             ],
@@ -285,7 +292,8 @@ test('неаутентифицированный пользователь не �
 
 test('полный цикл: регистрация -> вход -> получение данных -> обновление токена -> выход', function () {
     $registerResponse = $this->postJson('/api/auth/register', [
-        'name' => 'Flow Test User',
+        'first_name' => 'Flow',
+        'last_name' => 'Test User',
         'email' => 'flowtest@example.com',
         'password' => 'password123',
         'password_confirmation' => 'password123',
@@ -311,7 +319,8 @@ test('полный цикл: регистрация -> вход -> получе�
             'success' => true,
             'data' => [
                 'user' => [
-                    'name' => 'Flow Test User',
+                    'first_name' => 'Flow',
+                    'last_name' => 'Test User',
                     'email' => 'flowtest@example.com',
                 ],
             ],

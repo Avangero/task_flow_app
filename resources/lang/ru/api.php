@@ -1,7 +1,6 @@
 <?php
 
 return [
-    // JWT ошибки
     'jwt' => [
         'token_expired' => 'Токен истек',
         'token_invalid' => 'Токен недействителен',
@@ -10,16 +9,17 @@ return [
         'token_missing' => 'Токен отсутствует',
     ],
 
-    // HTTP ошибки
     'http' => [
         'not_found' => 'Ресурс не найден',
         'method_not_allowed' => 'Метод не разрешен',
         'validation_error' => 'Ошибка валидации данных',
         'unauthorized' => 'Неавторизованный доступ',
+        'forbidden' => 'Доступ запрещен',
         'internal_server_error' => 'Внутренняя ошибка сервера',
+        'success' => 'Успешный запрос',
+        'too_many_requests' => 'Слишком много запросов',
     ],
 
-    // Аутентификация
     'auth' => [
         'invalid_credentials' => 'Неверные учетные данные',
         'user_not_found' => 'Пользователь не найден',
@@ -31,7 +31,6 @@ return [
         'token_refreshed' => 'Токен обновлен',
     ],
 
-    // Общие сообщения
     'success' => 'Операция выполнена успешно',
     'error' => 'Произошла ошибка',
     'access_denied' => 'Доступ запрещен',

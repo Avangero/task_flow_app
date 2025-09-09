@@ -1,7 +1,6 @@
 <?php
 
 return [
-    // JWT errors
     'jwt' => [
         'token_expired' => 'Token has expired',
         'token_invalid' => 'Invalid token',
@@ -10,16 +9,17 @@ return [
         'token_missing' => 'Token is missing',
     ],
 
-    // HTTP errors
     'http' => [
         'not_found' => 'Resource not found',
         'method_not_allowed' => 'Method not allowed',
         'validation_error' => 'Validation error',
         'unauthorized' => 'Unauthorized access',
         'internal_server_error' => 'Internal server error',
+        'forbidden' => 'Access denied',
+        'success' => 'Request successful',
+        'too_many_requests' => 'Too many requests',
     ],
 
-    // Authentication
     'auth' => [
         'invalid_credentials' => 'Invalid credentials',
         'user_not_found' => 'User not found',
@@ -31,7 +31,6 @@ return [
         'token_refreshed' => 'Token refreshed',
     ],
 
-    // General messages
     'success' => 'Operation completed successfully',
     'error' => 'An error occurred',
     'access_denied' => 'Access denied',

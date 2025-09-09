@@ -4,9 +4,11 @@ namespace App\Http\Handlers;
 
 use App\Exceptions\ApiException;
 use App\Http\Resources\BaseApiResource;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -62,6 +64,14 @@ class ApiExceptionHandler
 
         if ($e instanceof ApiException) {
             return null;
+        }
+
+        if ($e instanceof AuthorizationException) {
+            return BaseApiResource::error(__('api.http.forbidden'), 403);
+        }
+
+        if ($e instanceof AccessDeniedHttpException) {
+            return BaseApiResource::error(__('api.http.forbidden'), 403);
         }
 
         $message = config('app.debug') ? $e->getMessage() : __('api.http.internal_server_error');

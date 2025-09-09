@@ -154,7 +154,8 @@ return [
     ],
 
     'attributes' => [
-        'name' => 'name',
+        'first_name' => 'first name',
+        'last_name' => 'last name',
         'email' => 'email address',
         'password' => 'password',
         'password_confirmation' => 'password confirmation',
