@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Repositories\Project\ProjectRepository;
+use App\Repositories\Project\ProjectRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Auth\AuthService;
 use App\Services\Auth\AuthServiceInterface;
+use App\Services\Project\ProjectService;
+use App\Services\Project\ProjectServiceInterface;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -30,6 +34,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserServiceInterface::class,
             UserService::class
+        );
+
+        $this->app->bind(
+            ProjectRepositoryInterface::class,
+            ProjectRepository::class
+        );
+
+        $this->app->bind(
+            ProjectServiceInterface::class,
+            ProjectService::class
         );
     }
 
