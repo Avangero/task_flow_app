@@ -1,61 +1,176 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Flow API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Task Flow API - это RESTful API для управления проектами и задачами, построенное на Laravel 12. Система предоставляет функциональность для управления пользователями, проектами, задачами и статистикой с поддержкой JWT аутентификации.
 
-## About Laravel
+**Техническое задание проекта можно найти в файле `SOW.md` в корне проекта.**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Особенности
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- JWT аутентификация и авторизация
+- Управление пользователями с ролевой системой (admin, manager, user)
+- Управление проектами и задачами
+- Статистика и аналитика
+- Email уведомления о изменениях статусов
+- Фильтрация и поиск
+- Покрытие тестами
+- Docker поддержка
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Требования
 
-## Learning Laravel
+- PHP 8.2+
+- Composer
+- Docker & Docker Compose
+- Свободность порта 80, в случае если он занят изменить .env
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Установка и настройка
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Клонируйте репозиторий:**
+```bash
+git clone <repository-url>
+cd task_flow_api
+```
+2. **Выдайте права на выполнение установочного скрипта:**
+```bash
+chmod +x install.sh
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Проверьте соответствие платформы требованиям и выполните запуск установочного скрипта:**
+```bash
+./install.sh
+```
 
-## Laravel Sponsors
+**Важно:** Установочный скрипт использует Docker и Docker Compose, убедитесь что Docker запущен.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## API Endpoints
 
-### Premium Partners
+Базовый URL: `http://localhost:8000/api`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Аутентификация
 
-## Contributing
+| Метод | URL | Описание | Аутентификация |
+|-------|-----|----------|----------------|
+| POST | `/auth/register` | Регистрация пользователя | Нет |
+| POST | `/auth/login` | Вход в систему | Нет |
+| POST | `/auth/refresh` | Обновление токена | Нет |
+| GET | `/auth/me` | Информация о текущем пользователе | JWT |
+| POST | `/auth/logout` | Выход из системы | JWT |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Пользователи
 
-## Code of Conduct
+| Метод | URL | Описание | Аутентификация |
+|-------|-----|----------|----------------|
+| GET | `/users` | Список пользователей | JWT |
+| GET | `/users/{id}` | Информация о пользователе | JWT |
+| PUT | `/users/{id}` | Обновление пользователя | JWT |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Проекты
 
-## Security Vulnerabilities
+| Метод | URL | Описание | Аутентификация |
+|-------|-----|----------|----------------|
+| GET | `/projects` | Список проектов | JWT |
+| POST | `/projects` | Создание проекта | JWT |
+| GET | `/projects/{id}` | Информация о проекте | JWT |
+| PUT | `/projects/{id}` | Обновление проекта | JWT |
+| DELETE | `/projects/{id}` | Удаление проекта | JWT |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Задачи
 
-## License
+| Метод | URL | Описание | Аутентификация |
+|-------|-----|----------|----------------|
+| GET | `/tasks` | Список задач | JWT |
+| POST | `/tasks` | Создание задачи | JWT |
+| GET | `/tasks/{id}` | Информация о задаче | JWT |
+| PUT | `/tasks/{id}` | Обновление задачи | JWT |
+| DELETE | `/tasks/{id}` | Удаление задачи | JWT |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Статистика
+
+| Метод | URL | Описание | Аутентификация |
+|-------|-----|----------|----------------|
+| GET | `/statistics` | Статистика по проектам и задачам | JWT |
+
+## Тестирование
+
+### Запуск всех тестов
+
+```bash
+./vendor/bin/sail artisan test
+```
+
+**Примечание:** Также тесты запускаются через GitHub при создании pull-request.
+
+## Тестовые данные для входа
+
+После выполнения `php artisan migrate:fresh --seed` в системе будут созданы следующие тестовые аккаунты:
+
+### Администратор
+- **Email:** `admin@taskflow.com`
+- **Пароль:** `password`
+- **Роль:** Administrator
+
+### Менеджеры
+- **Email:** `maria.petrova@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+- **Email:** `dmitry.sidorov@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+- **Email:** `elena.kozlova@taskflow.com` | **Пароль:** `password` | **Статус:** Неактивен
+
+### Обычные пользователи
+- **Email:** `anna.ivanova@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+- **Email:** `sergey.volkov@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+- **Email:** `olga.smirnova@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+- **Email:** `mikhail.novikov@taskflow.com` | **Пароль:** `password` | **Статус:** Заблокирован
+- **Email:** `tatyana.fedorova@taskflow.com` | **Пароль:** `password` | **Статус:** Активен
+
+## Инструменты для тестирования
+
+- В образе подняты контейнеры Mailpit и Queue. Это позволит проверить отправку писем прямо в браузере по адресу http://localhost:8025. 
+
+## Коллекция Postman
+
+Для удобства тестирования API вы можете импортировать готовую коллекцию Postman (не забудьте получить авторизационный токен и подставить его в заголовки):
+
+1. Откройте Postman
+2. Нажмите Import
+3. Выберите файл `task_flow_api.postman_collection.json` из корня проекта
+
+**Примечание:** Для удобства коллекция разбита на папки по сущностям для облегчения навигации.
+
+## Структура проекта
+
+```
+app/
+├── Enums/              # Перечисления (статусы, приоритеты)
+├── Events/             # События приложения
+├── Exceptions/         # Пользовательские исключения
+├── Filters/            # Фильтры для запросов
+├── Http/
+│   ├── Controllers/    # API контроллеры
+│   ├── Middleware/     # Middleware
+│   ├── Requests/       # Валидация запросов
+│   └── Resources/      # API ресурсы
+├── Listeners/          # Обработчики событий
+├── Mail/              # Email шаблоны
+├── Models/            # Eloquent модели
+├── Observers/         # Model observers
+├── Policies/          # Политики авторизации
+├── Repositories/      # Репозитории для работы с данными
+└── Services/          # Бизнес-логика
+```
+
+## Разработка
+
+### Code Style
+```bash
+# Проверка и исправление кода
+./vendor/bin/duster fix
+
+# Только проверка
+./vendor/bin/duster lint
+```
+
+## Автор
+
+**Александр Филин** - [@Avangero](https://github.com/Avangero)
+
+## Лицензия
+
+Этот проект лицензирован под [MIT License](https://opensource.org/licenses/MIT).
