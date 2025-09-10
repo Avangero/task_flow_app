@@ -6,6 +6,8 @@ use App\Filters\TaskFilter;
 use App\Filters\TaskFilterInterface;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
+use App\Repositories\Statistics\StatisticsRepository;
+use App\Repositories\Statistics\StatisticsRepositoryInterface;
 use App\Repositories\Task\TaskRepository;
 use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -14,6 +16,8 @@ use App\Services\Auth\AuthService;
 use App\Services\Auth\AuthServiceInterface;
 use App\Services\Project\ProjectService;
 use App\Services\Project\ProjectServiceInterface;
+use App\Services\Statistics\StatisticsService;
+use App\Services\Statistics\StatisticsServiceInterface;
 use App\Services\Task\TaskService;
 use App\Services\Task\TaskServiceInterface;
 use App\Services\User\UserService;
@@ -65,6 +69,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TaskServiceInterface::class,
             TaskService::class
+        );
+
+        $this->app->bind(
+            StatisticsRepositoryInterface::class,
+            StatisticsRepository::class
+        );
+
+        $this->app->bind(
+            StatisticsServiceInterface::class,
+            StatisticsService::class
         );
     }
 

@@ -22,9 +22,7 @@ return new class extends Migration
             $table->dateTime('due_date')->nullable()->index();
             $table->timestamps();
 
-            $table->index(['project_id', 'status']);
-            $table->index(['assigned_to', 'status']);
-            $table->index(['priority', 'due_date']);
+            $table->index(['created_by']);
         });
     }
 
