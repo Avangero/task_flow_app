@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Filters\TaskFilter;
 use App\Filters\TaskFilterInterface;
+use App\Models\Project;
+use App\Models\Task;
+use App\Observers\ProjectObserver;
+use App\Observers\TaskObserver;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
 use App\Repositories\Statistics\StatisticsRepository;
@@ -84,6 +88,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Task::observe(TaskObserver::class);
+        Project::observe(ProjectObserver::class);
+
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->input('email');
 
