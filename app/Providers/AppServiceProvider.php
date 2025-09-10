@@ -2,14 +2,20 @@
 
 namespace App\Providers;
 
+use App\Filters\TaskFilter;
+use App\Filters\TaskFilterInterface;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
+use App\Repositories\Task\TaskRepository;
+use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Auth\AuthService;
 use App\Services\Auth\AuthServiceInterface;
 use App\Services\Project\ProjectService;
 use App\Services\Project\ProjectServiceInterface;
+use App\Services\Task\TaskService;
+use App\Services\Task\TaskServiceInterface;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -44,6 +50,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ProjectServiceInterface::class,
             ProjectService::class
+        );
+
+        $this->app->bind(
+            TaskFilterInterface::class,
+            TaskFilter::class
+        );
+
+        $this->app->bind(
+            TaskRepositoryInterface::class,
+            TaskRepository::class
+        );
+
+        $this->app->bind(
+            TaskServiceInterface::class,
+            TaskService::class
         );
     }
 
