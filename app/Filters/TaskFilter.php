@@ -42,7 +42,7 @@ class TaskFilter implements TaskFilterInterface
         $query->orderBy($sortBy, $sortDirection);
     }
 
-    protected function prepareFilterValue(string $filterKey, $value): int
+    protected function prepareFilterValue(string $filterKey, $value): mixed
     {
         $integerFilters = ['project_id', 'assigned_to'];
 
