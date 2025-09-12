@@ -33,10 +33,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/auth/register",
-							"protocol": "http",
+							"raw": "{{$host}}/api/auth/register",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -74,10 +73,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/auth/login",
-							"protocol": "http",
+							"raw": "{{$host}}/api/auth/login",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -103,14 +101,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3NTczMzk1NzMsImV4cCI6MTc1NzM0MzIyMCwibmJmIjoxNzU3MzM5NjIwLCJqdGkiOiJYM1k2QTZjQU1XM0pqQzREIiwic3ViIjoiMjgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.BN8EmdJnEMKlxYMvGs5hxyswbRtknGpwDQGQufPeWgI"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/auth/refresh",
-							"protocol": "http",
+							"raw": "{{$host}}/api/auth/refresh",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -136,14 +133,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3NTczMzk1NzMsImV4cCI6MTc1NzM0MzIzNSwibmJmIjoxNzU3MzM5NjM1LCJqdGkiOiJ3ek5WUnA2dWxOOUhueTlqIiwic3ViIjoiMjgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.un7-D2paP4Yisxk9wfRlB2mqadXEDFAQBGJRs6ekRYM"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/auth/me",
-							"protocol": "http",
+							"raw": "{{$host}}/api/auth/me",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -169,14 +165,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZnJlc2giLCJpYXQiOjE3NTczMzk1NzMsImV4cCI6MTc1NzM0MzIzNSwibmJmIjoxNzU3MzM5NjM1LCJqdGkiOiJ3ek5WUnA2dWxOOUhueTlqIiwic3ViIjoiMjgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.un7-D2paP4Yisxk9wfRlB2mqadXEDFAQBGJRs6ekRYM"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/auth/logout",
-							"protocol": "http",
+							"raw": "{{$host}}/api/auth/logout",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -193,6 +188,69 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Filters",
+					"item": [
+						{
+							"name": "По статусу",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/users?status=blocked",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "blocked"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По роли",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/users?role_id=3",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "role_id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Список пользователей(admin, manager)",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -202,7 +260,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZ2lzdGVyIiwiaWF0IjoxNzU3NDE5ODkzLCJleHAiOjE3NTc0MjM0OTMsIm5iZiI6MTc1NzQxOTg5MywianRpIjoiYzIzMDFxWXl0RnN5ZzBWOCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FT0zi4RMI5KsckRu1fesvHxKsLkW1DbSBw2wDu3z5E8"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Accept",
@@ -219,10 +277,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/users",
-							"protocol": "http",
+							"raw": "{{$host}}/api/users",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -239,7 +296,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZ2lzdGVyIiwiaWF0IjoxNzU3NDE5ODkzLCJleHAiOjE3NTc0MjM0OTMsIm5iZiI6MTc1NzQxOTg5MywianRpIjoiYzIzMDFxWXl0RnN5ZzBWOCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FT0zi4RMI5KsckRu1fesvHxKsLkW1DbSBw2wDu3z5E8"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Accept",
@@ -247,10 +304,9 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/users/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/users/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -268,7 +324,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL3JlZ2lzdGVyIiwiaWF0IjoxNzU3NDE5ODkzLCJleHAiOjE3NTc0MjM0OTMsIm5iZiI6MTc1NzQxOTg5MywianRpIjoiYzIzMDFxWXl0RnN5ZzBWOCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FT0zi4RMI5KsckRu1fesvHxKsLkW1DbSBw2wDu3z5E8"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Accept",
@@ -289,10 +345,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/users/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/users/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -309,13 +364,47 @@
 			"name": "Projects",
 			"item": [
 				{
+					"name": "Filters",
+					"item": [
+						{
+							"name": "По статусу",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/projects?status=active",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Создание проекта(admin, manager)",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI2OTEyLCJleHAiOjE3NTc0MzA1MTIsIm5iZiI6MTc1NzQyNjkxMiwianRpIjoiOWpHWFo5MHR5blpQMlRhMiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.oA17Sq1Dvx3_vxudVSy6uB9T7IAD9ALk6lUICUDASZM"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -336,10 +425,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -359,7 +447,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI2OTEyLCJleHAiOjE3NTc0MzA1MTIsIm5iZiI6MTc1NzQyNjkxMiwianRpIjoiOWpHWFo5MHR5blpQMlRhMiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.oA17Sq1Dvx3_vxudVSy6uB9T7IAD9ALk6lUICUDASZM"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -380,10 +468,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects?status=active&per_page=15",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects?status=active&per_page=15",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -413,7 +500,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI2OTEyLCJleHAiOjE3NTc0MzA1MTIsIm5iZiI6MTc1NzQyNjkxMiwianRpIjoiOWpHWFo5MHR5blpQMlRhMiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.oA17Sq1Dvx3_vxudVSy6uB9T7IAD9ALk6lUICUDASZM"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -434,15 +521,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects/1",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
 								"projects",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -455,7 +541,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -476,10 +562,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -497,7 +582,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -518,10 +603,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -538,20 +622,277 @@
 			"name": "Task",
 			"item": [
 				{
+					"name": "Sorts",
+					"item": [
+						{
+							"name": "По дате создания",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?sort_by=created_at&sort_direction=desc",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По сроку сдачи",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?sort_by=due_date&sort_direction=desc",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "due_date"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По названию",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?sort_by=title&sort_direction=desc",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "title"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По приоритету",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?sort_by=priority&sort_direction=asc",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "priority"
+										},
+										{
+											"key": "sort_direction",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Filters",
+					"item": [
+						{
+							"name": "По статусу",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?status=pending",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "pending"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По приоритету",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?priority=low",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "priority",
+											"value": "low"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По проекту",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?project_id=1",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "project_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "По исполнителю",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{$token}}"
+									}
+								],
+								"url": {
+									"raw": "{{$host}}/api/tasks?assigned_to=5",
+									"host": [
+										"{{$host}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "assigned_to",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Получить список задач(all)",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/tasks",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -572,7 +913,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"body": {
@@ -585,10 +926,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/tasks",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -605,14 +945,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/tasks/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -634,7 +973,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NTAxNDY2LCJleHAiOjE3NTc1MDUwNjYsIm5iZiI6MTc1NzUwMTQ2NiwianRpIjoiRnFCVGtLZ2owdXYxMWRPUyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.sqQEp6N9epuVIZ9hoZ6hPAvOk1e9vhQOHwcHb6o-iCU"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"body": {
@@ -647,10 +986,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/tasks/1",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks/1",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -668,7 +1006,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDI3NTU4LCJleHAiOjE3NTc0MzExNTgsIm5iZiI6MTc1NzQyNzU1OCwianRpIjoiempsOUU1c2JLangzN0ZlciIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.jfS_Sx4RcWf48XJs1Kc5Rv1ozQNujHKWj8YJLXx_U-E"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"url": {
@@ -702,7 +1040,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NTEwMjM0LCJleHAiOjE3NTc1MTM4MzQsIm5iZiI6MTc1NzUxMDIzNCwianRpIjoiWFZISk1XVldlZk81RmFXbyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.2NGtAD-vBN87z-8T6erWPWGMEQAGantoK_ZQYyST6cw"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"body": {
@@ -715,15 +1053,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/tasks/1",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
 								"tasks",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -740,12 +1077,12 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NTEwMjM0LCJleHAiOjE3NTc1MTM4MzQsIm5iZiI6MTc1NzUxMDIzNCwianRpIjoiWFZISk1XVldlZk81RmFXbyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.2NGtAD-vBN87z-8T6erWPWGMEQAGantoK_ZQYyST6cw"
+								"value": "Bearer {{$token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"assigned_to\": 1\n}",
+							"raw": "{\n    \"assigned_to\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -753,15 +1090,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/tasks/1",
-							"protocol": "http",
+							"raw": "{{$host}}/api/tasks/2",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
 								"tasks",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -774,7 +1110,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NTEwMjM0LCJleHAiOjE3NTc1MTM4MzQsIm5iZiI6MTc1NzUxMDIzNCwianRpIjoiWFZISk1XVldlZk81RmFXbyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.2NGtAD-vBN87z-8T6erWPWGMEQAGantoK_ZQYyST6cw"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -795,15 +1131,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/api/projects/2",
-							"protocol": "http",
+							"raw": "{{$host}}/api/projects/3",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
 								"projects",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -821,7 +1156,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzU3NDk5NjA4LCJleHAiOjE3NTc1MDMyMDgsIm5iZiI6MTc1NzQ5OTYwOCwianRpIjoiQ0dwMEV2dHJ0czdTWG84MSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.Z6-RP4cP-Xx12rY5l4I-d5we-5fl5yDi3hUje8LvG-0"
+								"value": "Bearer {{$token}}"
 							},
 							{
 								"key": "Accept",
@@ -829,10 +1164,9 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/statistics",
-							"protocol": "http",
+							"raw": "{{$host}}/api/statistics",
 							"host": [
-								"localhost"
+								"{{$host}}"
 							],
 							"path": [
 								"api",
@@ -843,6 +1177,38 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "$token",
+			"value": ""
+		},
+		{
+			"key": "$host",
+			"value": ""
 		}
 	]
 }

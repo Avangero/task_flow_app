@@ -17,7 +17,7 @@ class TaskController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly TaskServiceInterface $service) {}
+    public function __construct(protected readonly TaskServiceInterface $service) {}
 
     public function index(Request $request): JsonResponse
     {

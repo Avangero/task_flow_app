@@ -14,14 +14,7 @@ class ProjectResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'status' => $this->status?->value,
-            'created_by' => $this->created_by,
-            'author' => $this->whenLoaded('author', function () {
-                return [
-                    'id' => $this->author->id,
-                    'first_name' => $this->author->first_name,
-                    'last_name' => $this->author->last_name,
-                ];
-            }),
+            'author' => UserResource::make($this->whenLoaded('author')),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
         ];

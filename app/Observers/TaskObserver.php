@@ -6,9 +6,17 @@ use App\Enums\TaskStatus;
 use App\Events\TaskAssigned;
 use App\Events\TaskStatusChanged;
 use App\Models\Task;
+use App\Traits\WithForgetCache;
 
 class TaskObserver
 {
+    use WithForgetCache;
+
+    public function created(Task $task): void
+    {
+        $this->forgetCache('statistics:summary');
+    }
+
     public function updated(Task $task): void
     {
         if ($task->wasChanged('assigned_to')) {
@@ -24,5 +32,12 @@ class TaskObserver
 
             event(new TaskStatusChanged($task->fresh(['project', 'assignee', 'author']), $oldStatus, $newStatus));
         }
+
+        $this->forgetCache('statistics:summary');
+    }
+
+    public function deleted(Task $task): void
+    {
+        $this->forgetCache('statistics:summary');
     }
 }

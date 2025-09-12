@@ -16,7 +16,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropIndex(['deleted_at']);
+            $table->dropSoftDeletes();
         });
     }
 };

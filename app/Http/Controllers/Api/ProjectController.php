@@ -17,7 +17,7 @@ class ProjectController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly ProjectServiceInterface $service) {}
+    public function __construct(protected readonly ProjectServiceInterface $service) {}
 
     public function index(Request $request): JsonResponse
     {

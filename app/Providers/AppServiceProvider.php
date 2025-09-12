@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exceptions\Handler as AppExceptionHandler;
 use App\Filters\TaskFilter;
 use App\Filters\TaskFilterInterface;
 use App\Models\Project;
@@ -10,8 +11,6 @@ use App\Observers\ProjectObserver;
 use App\Observers\TaskObserver;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
-use App\Repositories\Statistics\StatisticsRepository;
-use App\Repositories\Statistics\StatisticsRepositoryInterface;
 use App\Repositories\Task\TaskRepository;
 use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -27,6 +26,7 @@ use App\Services\Task\TaskServiceInterface;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->singleton(
+            ExceptionHandlerContract::class,
+            AppExceptionHandler::class
+        );
+
         $this->app->bind(
             AuthServiceInterface::class,
             AuthService::class
@@ -73,11 +78,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TaskServiceInterface::class,
             TaskService::class
-        );
-
-        $this->app->bind(
-            StatisticsRepositoryInterface::class,
-            StatisticsRepository::class
         );
 
         $this->app->bind(

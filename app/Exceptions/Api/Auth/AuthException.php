@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Exceptions\Api\Auth;
 
+use App\Exceptions\Api\ApiException;
 use Exception;
 
 class AuthException extends ApiException

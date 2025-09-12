@@ -2,23 +2,29 @@
 
 namespace App\Services\Auth;
 
-use App\Exceptions\AuthException;
+use App\Enums\UserStatus;
+use App\Exceptions\Api\Auth\AuthException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AuthService implements AuthServiceInterface
+readonly class AuthService implements AuthServiceInterface
 {
     public function register(RegisterRequest $request): array
     {
+        $defaultRoleId = Role::query()->where('slug', 'user')->value('id');
+
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $defaultRoleId,
+            'status' => UserStatus::ACTIVE->value,
         ]);
 
         $token = JWTAuth::fromUser($user);

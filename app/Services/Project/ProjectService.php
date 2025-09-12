@@ -2,14 +2,14 @@
 
 namespace App\Services\Project;
 
-use App\Exceptions\ApiException;
+use App\Exceptions\Api\ApiException;
 use App\Models\Project as ProjectModel;
 use App\Repositories\Project\ProjectRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ProjectService implements ProjectServiceInterface
+readonly class ProjectService implements ProjectServiceInterface
 {
-    public function __construct(protected readonly ProjectRepositoryInterface $repository) {}
+    public function __construct(protected ProjectRepositoryInterface $repository) {}
 
     public function list(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
