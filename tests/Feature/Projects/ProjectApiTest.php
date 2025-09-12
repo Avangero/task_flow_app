@@ -48,7 +48,7 @@ test('список проектов доступен всем авторизов
             'success',
             'data' => [
                 'projects' => [
-                    '*' => ['id', 'name', 'status', 'created_by'],
+                    '*' => ['id', 'name', 'status'],
                 ],
                 'meta' => ['current_page', 'last_page', 'per_page', 'total'],
             ],

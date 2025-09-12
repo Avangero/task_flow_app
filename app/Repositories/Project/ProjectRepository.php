@@ -40,4 +40,9 @@ class ProjectRepository implements ProjectRepositoryInterface
     {
         $project->delete();
     }
+
+    public function countAll(): int
+    {
+        return Project::query()->count();
+    }
 }

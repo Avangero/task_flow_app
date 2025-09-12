@@ -2,14 +2,14 @@
 
 namespace App\Services\User;
 
-use App\Exceptions\ApiException;
+use App\Exceptions\Api\ApiException;
 use App\Models\User as UserModel;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class UserService implements UserServiceInterface
+readonly class UserService implements UserServiceInterface
 {
-    public function __construct(protected readonly UserRepositoryInterface $repository) {}
+    public function __construct(protected UserRepositoryInterface $repository) {}
 
     public function list(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {

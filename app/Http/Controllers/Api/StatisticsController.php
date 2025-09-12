@@ -15,7 +15,7 @@ class StatisticsController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly StatisticsServiceInterface $service) {}
+    public function __construct(protected readonly StatisticsServiceInterface $service) {}
 
     public function index(IndexStatisticsRequest $request): JsonResponse
     {

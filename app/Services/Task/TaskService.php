@@ -2,14 +2,14 @@
 
 namespace App\Services\Task;
 
-use App\Exceptions\ApiException;
+use App\Exceptions\Api\ApiException;
 use App\Models\Task as TaskModel;
 use App\Repositories\Task\TaskRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class TaskService implements TaskServiceInterface
+readonly class TaskService implements TaskServiceInterface
 {
-    public function __construct(protected readonly TaskRepositoryInterface $repository) {}
+    public function __construct(protected TaskRepositoryInterface $repository) {}
 
     public function list(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {

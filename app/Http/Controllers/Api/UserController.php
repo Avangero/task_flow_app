@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly UserServiceInterface $service) {}
+    public function __construct(protected readonly UserServiceInterface $service) {}
 
     public function index(Request $request): JsonResponse
     {

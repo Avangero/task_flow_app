@@ -27,7 +27,6 @@ test('GET /api/statistics возвращает корректные агрега
     $userB = User::factory()->create(['email' => 'b@example.com', 'password' => bcrypt('password123'), 'role_id' => $userRole->id]);
     $token = JWTAuth::fromUser($userA);
 
-    // Projects
     $p1 = Project::create(['name' => 'P1', 'status' => ProjectStatus::ACTIVE->value, 'created_by' => $userA->id]);
     $p2 = Project::create(['name' => 'P2', 'status' => ProjectStatus::COMPLETED->value, 'created_by' => $userB->id]);
 

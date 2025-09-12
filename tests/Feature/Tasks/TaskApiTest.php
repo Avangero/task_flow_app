@@ -55,7 +55,7 @@ test('список задач с фильтрами доступен всем а
             'success',
             'data' => [
                 'tasks' => [
-                    '*' => ['id', 'title', 'status', 'priority', 'project_id', 'created_by'],
+                    '*' => ['id', 'title', 'status', 'priority'],
                 ],
                 'meta' => ['current_page', 'last_page', 'per_page', 'total'],
             ],

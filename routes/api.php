@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->middleware('throttle:register');
     Route::post('login', [AuthController::class, 'login'])->middleware('throttle:login');
-    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('refresh', [AuthController::class, 'refresh'])->middleware('jwt.auth');
 });
 
 Route::middleware('jwt.auth')->prefix('auth')->group(function () {
@@ -29,7 +29,7 @@ Route::middleware('jwt.auth')->prefix('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-Route::middleware('jwt.auth')->group(function () {
+Route::middleware(['jwt.auth', 'user.not_blocked'])->group(function () {
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::put('users/{id}', [UserController::class, 'update']);
